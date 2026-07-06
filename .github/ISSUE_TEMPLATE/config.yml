@@ -1,0 +1,9 @@
+# Force contributors through the structured forms above; no blank issues.
+blank_issues_enabled: false
+contact_links:
+  - name: Question or usage help
+    url: https://github.com/Davidslv/castplay/discussions
+    about: Ask a question or share how you're using castplay.
+  - name: Report a security vulnerability
+    url: https://github.com/Davidslv/castplay/security/advisories/new
+    about: Please report vulnerabilities privately — see SECURITY.md. Do not open a public issue.

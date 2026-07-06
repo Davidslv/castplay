@@ -1,0 +1,66 @@
+name: Bug report
+description: Something in castplay doesn't work as documented.
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. A minimal reproducing `.cast` + HTML snippet is the single most useful thing you can include.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you see, and what did you expect instead?
+      placeholder: The demo stays blank instead of typing out.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: The smallest HTML + `.cast` that shows the problem. A link to a hosted page or a code block both work.
+      render: html
+    validations:
+      required: true
+  - type: dropdown
+    id: cast-source
+    attributes:
+      label: How is the cast loaded?
+      options:
+        - Inline (data-cast="#id")
+        - URL / fetched (data-cast="file.cast")
+        - Not sure
+    validations:
+      required: true
+  - type: dropdown
+    id: served
+    attributes:
+      label: How is the page opened?
+      options:
+        - From disk (file://)
+        - Over http(s) (a server)
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: castplay version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: Firefox 128, Chrome 126, Safari 17…
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Console errors
+      description: Anything logged in the browser devtools console.
+      render: shell
+    validations:
+      required: false

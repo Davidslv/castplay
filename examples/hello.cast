@@ -1,0 +1,10 @@
+{"version": 2, "width": 80, "height": 12, "title": "castplay hello"}
+[0.3, "o", "$ "]
+[0.9, "o", "echo \u001b[32mhello\u001b[0m from \u001b[36mcastplay\u001b[0m"]
+[1.4, "o", "\r\n"]
+[1.5, "o", "\u001b[32mhello\u001b[0m from \u001b[36mcastplay\u001b[0m\r\n"]
+[2.0, "o", "$ "]
+[2.6, "o", "castplay --no-deps --no-cdn --no-build"]
+[3.1, "o", "\r\n"]
+[3.2, "o", "\u001b[90m# one file. no deps. no build. that's the whole thing.\u001b[0m\r\n"]
+[3.9, "o", "$ "]

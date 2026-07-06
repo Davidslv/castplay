@@ -1,0 +1,17 @@
+# castplay has no build step and no runtime dependencies; there is very little
+# to ignore. These cover editor/OS cruft and anything a contributor's tooling
+# might drop in.
+
+# Dependencies (none ship, but a contributor may `npm install` dev tooling)
+node_modules/
+
+# Logs and diagnostics
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

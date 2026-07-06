@@ -1,0 +1,36 @@
+# castplay
+
+> A tiny, self-contained asciinema-cast player: a single small vanilla-JavaScript file, zero dependencies, no CDN, no build step. It parses an asciinema v2 `.cast` (a recorded terminal session) and types it into a styled element with ANSI-SGR colour, autoplaying when it scrolls into view. Built for embedding animated terminal demos in HTML pages and slide decks; works even from `file://`.
+
+Key facts for reasoning about this repo:
+- The entire library is `castplay.js`. There is no build output and no runtime dependency.
+- A player is any element with a `data-cast` attribute, valued either `#id` (an inline `<script type="text/cast">` block — preferred, works offline) or a URL to a `.cast` (fetched over http).
+- The pure, testable core is two functions: `parseCast(text)` and `ansiToHtml(raw)`. Everything else is DOM plumbing.
+- Tests use Node's built-in `node:test` (`npm test`); a docs gate (`npm run gate`) enforces version consistency. Both run in CI on Node 18/20/22.
+
+## Docs
+
+- [README](README.md): what it is, install, quickstart, and the map to everything else.
+- [Getting started](docs/getting-started.md): from nothing to a playing demo, no prior knowledge assumed.
+- [How-to recipes](docs/how-to.md): record a cast, inline vs fetch, theme colours, multiple players, use the parser/renderer standalone, troubleshooting.
+- [Cast-format reference](docs/cast-format.md): exactly which slice of the asciinema v2 format is supported, and the ANSI-SGR code table.
+- [Architecture](docs/architecture.md): the pipeline, design rationale, and an explicit "where this design strains" section.
+
+## Source
+
+- [castplay.js](castplay.js): the whole library, heavily commented.
+- [test/castplay.test.js](test/castplay.test.js): the behavioural suite for the pure core.
+- [index.html](index.html): the live demo and manual integration check.
+- [examples/hello.cast](examples/hello.cast): a minimal sample cast.
+
+## Contributing & policy
+
+- [AGENTS.md](AGENTS.md): instructions for an AI agent working in this repo (gates, conventions).
+- [CONTRIBUTING.md](CONTRIBUTING.md): dev setup, quality gates, how to propose larger changes.
+- [SECURITY.md](SECURITY.md): the trust boundary and how to report a vulnerability.
+- [GOVERNANCE.md](GOVERNANCE.md): single-maintainer (BDFL) model; the overriding "stay tiny" principle.
+
+## Optional
+
+- [CHANGELOG.md](CHANGELOG.md): release history (Keep a Changelog + SemVer).
+- [SUPPORT.md](SUPPORT.md): where to get help; honest no-SLA expectations.

@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use castplay, please cite it using this metadata."
+title: "castplay"
+abstract: >-
+  A tiny, self-contained asciinema-cast player: zero dependencies, no CDN, no
+  build step. Parses an asciinema v2 .cast and types it into a styled terminal
+  element with ANSI-SGR colour, autoplaying when it scrolls into view.
+type: software
+version: 1.0.0
+date-released: 2026-07-06
+license: MIT
+repository-code: "https://github.com/Davidslv/castplay"
+url: "https://github.com/Davidslv/castplay"
+keywords:
+  - asciinema
+  - asciicast
+  - terminal
+  - ansi
+  - presentation
+  - vanilla-js
+authors:
+  - given-names: David
+    family-names: Silva
+    alias: Davidslv

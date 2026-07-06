@@ -1,0 +1,13 @@
+# Code owners — review routing. Last matching pattern wins.
+# Even with one maintainer this documents the intended ownership.
+
+# Everything, by default.
+*                       @Davidslv
+
+# The library core and the docs that describe it.
+/castplay.js            @Davidslv
+/docs/                  @Davidslv
+
+# Project meta: CI, templates, and the docs gate.
+/.github/               @Davidslv
+/scripts/               @Davidslv

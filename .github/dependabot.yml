@@ -1,0 +1,12 @@
+version: 2
+# castplay ships zero runtime and dev dependencies, so there is no npm/package
+# ecosystem for Dependabot to watch — adding one would be noise. The only moving
+# external parts are the GitHub Actions pinned in .github/workflows, so that is
+# the single ecosystem configured here.
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci"

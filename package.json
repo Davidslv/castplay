@@ -1,0 +1,46 @@
+{
+  "name": "castplay",
+  "version": "1.0.0",
+  "description": "A tiny, self-contained asciinema-cast player. No dependencies, no CDN, no build step.",
+  "keywords": [
+    "asciinema",
+    "asciicast",
+    "terminal",
+    "player",
+    "ansi",
+    "presentation",
+    "slides",
+    "vanilla-js",
+    "zero-dependencies"
+  ],
+  "homepage": "https://github.com/Davidslv/castplay#readme",
+  "bugs": {
+    "url": "https://github.com/Davidslv/castplay/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Davidslv/castplay.git"
+  },
+  "license": "MIT",
+  "author": "David Silva (https://github.com/Davidslv)",
+  "type": "commonjs",
+  "main": "castplay.js",
+  "exports": {
+    ".": "./castplay.js"
+  },
+  "files": [
+    "castplay.js",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "gate": "sh scripts/check-docs.sh"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
