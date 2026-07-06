@@ -8,7 +8,7 @@ castplay uses a **single-maintainer (BDFL) model**, stated honestly rather than 
 
 ## How decisions are made
 
-1. **Anyone can propose.** Open an issue for a bug, feature, or change. For anything larger than a small fix, propose it as an issue *before* writing code.
+1. **Anyone can propose.** Open an issue for a bug, feature, or change. For anything larger than a small fix, propose it as an issue _before_ writing code.
 2. **Discussion is public.** Trade-offs are weighed in the open on the issue or PR.
 3. **The maintainer decides**, guided by one overriding principle:
 
@@ -18,7 +18,7 @@ castplay uses a **single-maintainer (BDFL) model**, stated honestly rather than 
 
 ## Scope
 
-castplay is a *display component* for asciinema casts. Recording tooling, a general terminal emulator, or a plugin system are out of scope by design — the point is that it's small enough to read in one sitting.
+castplay is a _display component_ for asciinema casts. Recording tooling, a general terminal emulator, or a plugin system are out of scope by design — the point is that it's small enough to read in one sitting.
 
 ## How this model can evolve
 

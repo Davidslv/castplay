@@ -1,6 +1,6 @@
 # Cast-format reference
 
-castplay reads a subset of the [asciinema v2 asciicast format](https://docs.asciinema.org/manual/asciicast/v2/). This page is the authoritative statement of *exactly* what it supports, so you know what will and won't render.
+castplay reads a subset of the [asciinema v2 asciicast format](https://docs.asciinema.org/manual/asciicast/v2/). This page is the authoritative statement of _exactly_ what it supports, so you know what will and won't render.
 
 ## File shape
 
@@ -19,11 +19,11 @@ Blank lines and a trailing newline are tolerated.
 
 ## Events
 
-| Position | Field | Type | castplay uses it? |
-|---|---|---|---|
-| `[0]` | time | number (seconds since start) | ✅ — the delay before the *next* event is `next.time − this.time` |
-| `[1]` | code | string (`"o"` output, `"i"` input, …) | ❌ — ignored; every event's data is appended as output |
-| `[2]` | data | string (the text, possibly with ANSI) | ✅ — appended to the terminal |
+| Position | Field | Type                                  | castplay uses it?                                                 |
+| -------- | ----- | ------------------------------------- | ----------------------------------------------------------------- |
+| `[0]`    | time  | number (seconds since start)          | ✅ — the delay before the _next_ event is `next.time − this.time` |
+| `[1]`    | code  | string (`"o"` output, `"i"` input, …) | ❌ — ignored; every event's data is appended as output            |
+| `[2]`    | data  | string (the text, possibly with ANSI) | ✅ — appended to the terminal                                     |
 
 Because the code field is ignored, castplay effectively treats **every event as output**. For normal recordings (which are almost entirely `"o"` events) this is exactly right. If a cast contains `"i"` (input) or other event types and you don't want them shown, strip them before loading.
 
@@ -47,18 +47,18 @@ If you see colour codes printed literally (`[32m`) instead of colour, the escape
 
 castplay handles the `\x1b[…m` (Select Graphic Rendition) sequences below. Multiple codes may be combined with `;` in one sequence, e.g. `[1;32m`.
 
-| SGR code | Effect | Default colour |
-|---|---|---|
-| `0` | reset all attributes | — |
-| `1` | bold | — |
-| `32` | green | `#7fd1a0` |
-| `90` | grey (dim) | `#8b857a` |
-| `37` | off-white (default fg) | `#cfc7b6` |
-| `92` | bright green | `#8fe3a8` |
-| `91` | red | `#ff8a76` |
-| `33` | yellow | `#f4bf4f` |
-| `36` | cyan | `#79c7d6` |
-| `97` | bright white | `#ffffff` |
+| SGR code | Effect                 | Default colour |
+| -------- | ---------------------- | -------------- |
+| `0`      | reset all attributes   | —              |
+| `1`      | bold                   | —              |
+| `32`     | green                  | `#7fd1a0`      |
+| `90`     | grey (dim)             | `#8b857a`      |
+| `37`     | off-white (default fg) | `#cfc7b6`      |
+| `92`     | bright green           | `#8fe3a8`      |
+| `91`     | red                    | `#ff8a76`      |
+| `33`     | yellow                 | `#f4bf4f`      |
+| `36`     | cyan                   | `#79c7d6`      |
+| `97`     | bright white           | `#ffffff`      |
 
 The colours are the overridable `Castplay.palette` — see [how-to → theme every player](how-to.md#theme-every-player-at-once).
 

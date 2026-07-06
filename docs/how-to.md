@@ -32,8 +32,8 @@ Keep recordings **linear** (type a command, see output, repeat). castplay append
 <!-- Inline: reads from the matching <script id>. Works from file://. Preferred. -->
 <pre class="term" data-cast="#session-1"></pre>
 <script type="text/cast" id="session-1">
-{"version":2,"width":80,"height":10}
-[0.3,"o","$ ls\r\n"]
+  {"version":2,"width":80,"height":10}
+  [0.3,"o","$ ls\r\n"]
 </script>
 
 <!-- URL: fetched over http(s). Does NOT work from file:// (browsers block fetch). -->
@@ -79,8 +79,12 @@ Just add more `[data-cast]` elements — `init()` finds them all. Each plays ind
 ```html
 <pre class="term" data-cast="#one"></pre>
 <pre class="term" data-cast="#two"></pre>
-<script type="text/cast" id="one">…</script>
-<script type="text/cast" id="two">…</script>
+<script type="text/cast" id="one">
+  …
+</script>
+<script type="text/cast" id="two">
+  …
+</script>
 <script src="castplay.js"></script>
 ```
 
@@ -90,7 +94,7 @@ Just add more `[data-cast]` elements — `init()` finds them all. Each plays ind
 
 ```js
 const container = document.querySelector('#new-section');
-Castplay.init(container);   // wires up any [data-cast] inside #new-section
+Castplay.init(container); // wires up any [data-cast] inside #new-section
 ```
 
 There is currently no teardown API; see [architecture → where this strains](architecture.md#where-this-design-would-strain).
@@ -104,19 +108,19 @@ const { parseCast, ansiToHtml } = require('castplay');
 const fs = require('fs');
 
 const cast = fs.readFileSync('demo.cast', 'utf8');
-const events = parseCast(cast);                     // [ [t,"o",text], … ]
+const events = parseCast(cast); // [ [t,"o",text], … ]
 const fullText = events.map((e) => e[2]).join('');
-const html = ansiToHtml(fullText);                  // escaped HTML with <span> colour runs
+const html = ansiToHtml(fullText); // escaped HTML with <span> colour runs
 ```
 
 ## Troubleshooting
 
-| Symptom | Cause | Fix |
-|---|---|---|
-| Blank, never animates; opened from disk; using a URL cast | Browsers block `fetch()` on `file://` | Inline the cast, or serve the page over http(s) |
-| `(cast failed to load …)` shown in the element | The URL 404'd or the origin blocked it | Check the path; serve over http; or inline it |
-| `(cast not found: #id)` | No element matches the `#id` in `data-cast` | Ensure a `<script type="text/cast" id="id">` exists with that id |
-| `(cast failed to parse)` | A line isn't valid JSON | Each event line must be valid JSON; the escape byte must be `\u001b`, not a raw control char |
-| Colours print as literal `[32m` | Missing escape byte | Write the escape as `\u001b` in the cast JSON |
-| Plays immediately, not on scroll | Browser lacks `IntersectionObserver` | Expected fallback — content still shows |
-| Output piles up instead of updating in place | Cast uses cursor moves / redraws | castplay is for linear sessions; re-record without `clear`/progress bars |
+| Symptom                                                   | Cause                                       | Fix                                                                                          |
+| --------------------------------------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Blank, never animates; opened from disk; using a URL cast | Browsers block `fetch()` on `file://`       | Inline the cast, or serve the page over http(s)                                              |
+| `(cast failed to load …)` shown in the element            | The URL 404'd or the origin blocked it      | Check the path; serve over http; or inline it                                                |
+| `(cast not found: #id)`                                   | No element matches the `#id` in `data-cast` | Ensure a `<script type="text/cast" id="id">` exists with that id                             |
+| `(cast failed to parse)`                                  | A line isn't valid JSON                     | Each event line must be valid JSON; the escape byte must be `\u001b`, not a raw control char |
+| Colours print as literal `[32m`                           | Missing escape byte                         | Write the escape as `\u001b` in the cast JSON                                                |
+| Plays immediately, not on scroll                          | Browser lacks `IntersectionObserver`        | Expected fallback — content still shows                                                      |
+| Output piles up instead of updating in place              | Cast uses cursor moves / redraws            | castplay is for linear sessions; re-record without `clear`/progress bars                     |

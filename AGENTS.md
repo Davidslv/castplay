@@ -8,14 +8,15 @@ castplay is a single-file, zero-dependency, no-build asciinema-cast player. The 
 
 ## The gates that must stay green
 
-Before proposing any change, run both and make them pass:
+Before proposing any change, run these and make them pass (`npm ci` once first, for the dev tooling):
 
 ```sh
 npm test        # node --test — behavioural suite for parseCast + ansiToHtml
-npm run gate    # scripts/check-docs.sh — version consistency
+npm run lint    # node --check, eslint, prettier --check, markdownlint, docs + cast gates
+npm run gate    # shorthand: npm run lint && npm test
 ```
 
-CI (`.github/workflows/ci.yml`) runs the tests on Node 18, 20, and 22, and runs the gate. A change that reddens either gate is not ready.
+`npm run format` auto-fixes formatting. CI (`.github/workflows/ci.yml`) runs the tests on Node 18/20/22, the full lint job, and `yamllint` on the YAML. A change that reddens any of them is not ready.
 
 ## Test discipline
 
@@ -30,7 +31,7 @@ The version appears in **four** files and the gate fails if they disagree: `cast
 ## Conventions
 
 - **Style:** ES5-flavoured (`var`, `function`, IIFE), no modules, so it runs everywhere untranspiled. Match the surrounding code; don't "modernise" it without a reason tied to a goal.
-- **Comments:** explain the *why*. Keep the existing comment density.
+- **Comments:** explain the _why_. Keep the existing comment density.
 - **Whitespace:** governed by [`.editorconfig`](.editorconfig) — 2-space indent, LF, final newline.
 - **Commits:** imperative subject under ~72 chars; body explains non-obvious reasoning.
 - **PRs:** one concern each; fill in [the PR template](.github/PULL_REQUEST_TEMPLATE.md); note user-facing changes under `## [Unreleased]` in [`CHANGELOG.md`](CHANGELOG.md).

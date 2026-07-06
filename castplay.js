@@ -37,10 +37,10 @@
   'use strict';
   var api = factory();
   if (typeof module === 'object' && module.exports) {
-    module.exports = api;            // Node / test — no DOM side effects
+    module.exports = api; // Node / test — no DOM side effects
   } else {
-    global.Castplay = api;           // browser global
-    api.init();                      // zero-config: scan the DOM for [data-cast]
+    global.Castplay = api; // browser global
+    api.init(); // zero-config: scan the DOM for [data-cast]
   }
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
@@ -64,7 +64,7 @@
     91: '#ff8a76', // red     — errors
     33: '#f4bf4f', // yellow  — warnings
     36: '#79c7d6', // cyan    — paths, links
-    97: '#ffffff'  // bright white — emphasis
+    97: '#ffffff', // bright white — emphasis
   };
 
   /**
@@ -92,8 +92,14 @@
    * @returns {string}    HTML-safe string with styled spans
    */
   function ansiToHtml(raw) {
-    var out = '', open = false, color = null, bold = false;
-    var re = /\x1b\[([0-9;]*)m/g, last = 0, m;
+    var out = '',
+      open = false,
+      color = null,
+      bold = false;
+    // eslint-disable-next-line no-control-regex -- matching the ESC control byte is the point
+    var re = /\x1b\[([0-9;]*)m/g,
+      last = 0,
+      m;
 
     function span() {
       var css = '';
@@ -103,20 +109,31 @@
     }
     function chunk(text) {
       if (!text) return;
-      if (!open) { out += span(); open = true; }
+      if (!open) {
+        out += span();
+        open = true;
+      }
       out += esc(text);
     }
 
     while ((m = re.exec(raw))) {
       chunk(raw.slice(last, m.index));
       last = re.lastIndex;
-      if (open) { out += '</span>'; open = false; }
+      if (open) {
+        out += '</span>';
+        open = false;
+      }
       // A single sequence may carry several `;`-separated codes, e.g. `\x1b[1;32m`.
       m[1].split(';').forEach(function (code) {
-        code = parseInt(code || '0', 10);            // an empty code means reset
-        if (code === 0) { color = null; bold = false; }
-        else if (code === 1) { bold = true; }
-        else if (palette[code]) { color = palette[code]; }
+        code = parseInt(code || '0', 10); // an empty code means reset
+        if (code === 0) {
+          color = null;
+          bold = false;
+        } else if (code === 1) {
+          bold = true;
+        } else if (palette[code]) {
+          color = palette[code];
+        }
       });
     }
     chunk(raw.slice(last));
@@ -140,9 +157,13 @@
   function parseCast(text) {
     return text
       .split('\n')
-      .filter(Boolean)     // tolerate blank lines / trailing newline
-      .slice(1)            // drop the header line
-      .map(function (line) { return JSON.parse(line); });
+      .filter(function (l) {
+        return l.trim() !== '';
+      }) // skip blank / whitespace-only lines
+      .slice(1) // (e.g. an indented </script>), drop the header
+      .map(function (line) {
+        return JSON.parse(line);
+      });
   }
 
   /**
@@ -179,21 +200,36 @@
   /** Load and parse the cast (once), then invoke `cb`. Errors render inline. */
   Player.prototype.load = function (cb) {
     if (this.events) return cb();
-    var self = this, src = this.src || '';
+    var self = this,
+      src = this.src || '';
 
-    if (src.charAt(0) === '#') {                    // inline <script type="text/cast">
+    if (src.charAt(0) === '#') {
+      // inline <script type="text/cast">
       var node = document.querySelector(src);
-      if (!node) { this.el.textContent = '(cast not found: ' + src + ')'; return; }
-      try { this.events = parseCast(node.textContent); cb(); }
-      catch (e) { this.el.textContent = '(cast failed to parse)'; }
+      if (!node) {
+        this.el.textContent = '(cast not found: ' + src + ')';
+        return;
+      }
+      try {
+        this.events = parseCast(node.textContent);
+        cb();
+      } catch (e) {
+        this.el.textContent = '(cast failed to parse)';
+      }
       return;
     }
 
-    fetch(src)                                      // URL: needs http(s), not file://
-      .then(function (r) { return r.text(); })
+    fetch(src) // URL: needs http(s), not file://
+      .then(function (r) {
+        return r.text();
+      })
       .then(function (txt) {
-        try { self.events = parseCast(txt); cb(); }
-        catch (e) { self.el.textContent = '(cast failed to parse)'; }
+        try {
+          self.events = parseCast(txt);
+          cb();
+        } catch (e) {
+          self.el.textContent = '(cast failed to parse)';
+        }
       })
       .catch(function () {
         self.el.textContent = '(cast failed to load — serve over http, or inline it)';
@@ -208,40 +244,60 @@
 
   /** Emit one event, then schedule the next after its real inter-event delay. */
   Player.prototype._tick = function () {
-    var self = this, ev = this.events;
-    if (this.i >= ev.length) { this.playing = false; this.finished = true; return; }
+    var self = this,
+      ev = this.events;
+    if (this.i >= ev.length) {
+      this.playing = false;
+      this.finished = true;
+      return;
+    }
     this.raw += ev[this.i][2];
     this.render(this.raw);
     var cur = ev[this.i][0];
-    var nxt = (this.i + 1 < ev.length) ? ev[this.i + 1][0] : cur;
+    var nxt = this.i + 1 < ev.length ? ev[this.i + 1][0] : cur;
     this.i++;
-    this.timer = setTimeout(function () { self._tick(); }, Math.max(0, (nxt - cur) * 1000));
+    this.timer = setTimeout(
+      function () {
+        self._tick();
+      },
+      Math.max(0, (nxt - cur) * 1000),
+    );
   };
 
   Player.prototype.play = function () {
     var self = this;
     if (this.playing) return;
     this.load(function () {
-      self.playing = true; self.paused = false; self.finished = false;
+      self.playing = true;
+      self.paused = false;
+      self.finished = false;
       self._tick();
     });
   };
   Player.prototype.pause = function () {
     clearTimeout(this.timer);
-    this.playing = false; this.paused = true;
+    this.playing = false;
+    this.paused = true;
   };
   Player.prototype.resume = function () {
     if (this.playing) return;
-    this.playing = true; this.paused = false;
+    this.playing = true;
+    this.paused = false;
     this._tick();
   };
   Player.prototype.reset = function () {
     clearTimeout(this.timer);
-    this.i = 0; this.raw = '';
-    this.playing = false; this.paused = false; this.finished = false;
+    this.i = 0;
+    this.raw = '';
+    this.playing = false;
+    this.paused = false;
+    this.finished = false;
     this.render('');
   };
-  Player.prototype.replay = function () { this.reset(); this.play(); };
+  Player.prototype.replay = function () {
+    this.reset();
+    this.play();
+  };
 
   /**
    * Find every `[data-cast]` element under `root`, wire up a Player, and arm
@@ -255,24 +311,37 @@
    */
   function scan(root) {
     root = root || document;
-    var players = [].slice.call(root.querySelectorAll('[data-cast]'))
-      .map(function (n) { return new Player(n); });
+    var players = [].slice.call(root.querySelectorAll('[data-cast]')).map(function (n) {
+      return new Player(n);
+    });
 
     if ('IntersectionObserver' in global) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          var p = e.target.__cp;
-          if (!p) return;
-          if (e.isIntersecting) {
-            if (!p.armed) { p.armed = true; p.replay(); }
-          } else {
-            p.armed = false; p.reset();
-          }
-        });
-      }, { threshold: 0.55 });
-      players.forEach(function (p) { p.el.__cp = p; io.observe(p.el); });
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            var p = e.target.__cp;
+            if (!p) return;
+            if (e.isIntersecting) {
+              if (!p.armed) {
+                p.armed = true;
+                p.replay();
+              }
+            } else {
+              p.armed = false;
+              p.reset();
+            }
+          });
+        },
+        { threshold: 0.55 },
+      );
+      players.forEach(function (p) {
+        p.el.__cp = p;
+        io.observe(p.el);
+      });
     } else {
-      players.forEach(function (p) { p.play(); });
+      players.forEach(function (p) {
+        p.play();
+      });
     }
 
     global.__castPlayers = players;
@@ -286,9 +355,11 @@
    * @param {ParentNode} [root]
    */
   function init(root) {
-    if (typeof document === 'undefined') return;   // no-op outside a browser
+    if (typeof document === 'undefined') return; // no-op outside a browser
     if (document.readyState !== 'loading') return scan(root);
-    document.addEventListener('DOMContentLoaded', function () { scan(root); });
+    document.addEventListener('DOMContentLoaded', function () {
+      scan(root);
+    });
   }
 
   return {
@@ -297,6 +368,6 @@
     ansiToHtml: ansiToHtml,
     parseCast: parseCast,
     Player: Player,
-    init: init
+    init: init,
   };
 });

@@ -1,7 +1,7 @@
 name: Feature request
 description: Suggest a capability for castplay.
-title: "[feature]: "
-labels: ["enhancement"]
+title: '[feature]: '
+labels: ['enhancement']
 body:
   - type: markdown
     attributes:
@@ -26,9 +26,9 @@ body:
     attributes:
       label: Does this keep castplay dependency-free and build-step-free?
       options:
-        - "Yes — pure vanilla JS, no new dependency or build"
-        - "Not sure"
-        - "No — it would need a dependency or a build step"
+        - 'Yes — pure vanilla JS, no new dependency or build'
+        - 'Not sure'
+        - 'No — it would need a dependency or a build step'
     validations:
       required: true
   - type: textarea

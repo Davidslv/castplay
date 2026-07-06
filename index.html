@@ -1,54 +1,111 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>castplay — a tiny asciinema-cast player</title>
-  <meta name="description" content="castplay: a small, zero-dependency, no-build asciinema .cast player that types a recorded terminal session into a styled element with ANSI colour.">
-  <style>
-    :root {
-      --bg: #0d1117; --fg: #c9d1d9; --dim: #8b949e;
-      --term-bg: #010409; --border: #30363d; --accent: #58a6ff;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; background: var(--bg); color: var(--fg);
-      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    }
-    main { max-width: 760px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
-    h1 { font-size: 2.2rem; margin: 0 0 .25rem; letter-spacing: -.02em; }
-    .tag { color: var(--dim); margin: 0 0 2rem; }
-    a { color: var(--accent); }
-    h2 { margin: 2.5rem 0 .75rem; font-size: 1.2rem; }
-    pre.code {
-      background: var(--term-bg); border: 1px solid var(--border);
-      border-radius: 8px; padding: 1rem; overflow-x: auto; font-size: .85rem;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    /* the terminal surface castplay types into */
-    .term {
-      display: block; background: var(--term-bg); border: 1px solid var(--border);
-      border-radius: 8px; padding: 1rem 1.1rem; margin: 0; min-height: 12.5rem;
-      max-height: 12.5rem; overflow-y: auto; white-space: pre-wrap; word-break: break-word;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .9rem; line-height: 1.5; color: var(--fg);
-    }
-    .hint { color: var(--dim); font-size: .85rem; margin-top: .5rem; }
-  </style>
-</head>
-<body>
-  <main>
-    <h1>castplay</h1>
-    <p class="tag">A tiny, self-contained asciinema-<code>.cast</code> player. No dependencies, no CDN, no build step.</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>castplay — a tiny asciinema-cast player</title>
+    <meta
+      name="description"
+      content="castplay: a small, zero-dependency, no-build asciinema .cast player that types a recorded terminal session into a styled element with ANSI colour."
+    />
+    <style>
+      :root {
+        --bg: #0d1117;
+        --fg: #c9d1d9;
+        --dim: #8b949e;
+        --term-bg: #010409;
+        --border: #30363d;
+        --accent: #58a6ff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font:
+          16px/1.6 -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 3rem 1.25rem 5rem;
+      }
+      h1 {
+        font-size: 2.2rem;
+        margin: 0 0 0.25rem;
+        letter-spacing: -0.02em;
+      }
+      .tag {
+        color: var(--dim);
+        margin: 0 0 2rem;
+      }
+      a {
+        color: var(--accent);
+      }
+      h2 {
+        margin: 2.5rem 0 0.75rem;
+        font-size: 1.2rem;
+      }
+      pre.code {
+        background: var(--term-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      /* the terminal surface castplay types into */
+      .term {
+        display: block;
+        background: var(--term-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem 1.1rem;
+        margin: 0;
+        min-height: 12.5rem;
+        max-height: 12.5rem;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        color: var(--fg);
+      }
+      .hint {
+        color: var(--dim);
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>castplay</h1>
+      <p class="tag">
+        A tiny, self-contained asciinema-<code>.cast</code> player. No dependencies, no CDN, no
+        build step.
+      </p>
 
-    <p>Scroll the demo into view and it plays. Click to pause / resume; click when it finishes to replay.</p>
+      <p>
+        Scroll the demo into view and it plays. Click to pause / resume; click when it finishes to
+        replay.
+      </p>
 
-    <!-- The player: an element with data-cast pointing at the inline cast below. -->
-    <pre class="term" data-cast="#demo" aria-label="Animated terminal demo"></pre>
-    <p class="hint">↑ click to pause / resume · plays automatically when visible</p>
+      <!-- The player: an element with data-cast pointing at the inline cast below. -->
+      <pre class="term" data-cast="#demo" aria-label="Animated terminal demo"></pre>
+      <p class="hint">↑ click to pause / resume · plays automatically when visible</p>
 
-    <h2>Use it</h2>
-    <pre class="code">&lt;pre class="term" data-cast="#demo"&gt;&lt;/pre&gt;
+      <h2>Use it</h2>
+      <pre class="code">
+&lt;pre class="term" data-cast="#demo"&gt;&lt;/pre&gt;
 
 &lt;script type="text/cast" id="demo"&gt;
 {"version":2,"width":80,"height":12}
@@ -57,24 +114,26 @@
 
 &lt;script src="castplay.js"&gt;&lt;/script&gt;</pre>
 
-    <p>Full docs: <a href="https://github.com/Davidslv/castplay">github.com/Davidslv/castplay</a> ·
-       <a href="docs/getting-started.md">Getting started</a> ·
-       <a href="docs/architecture.md">Architecture</a></p>
-  </main>
+      <p>
+        Full docs: <a href="https://github.com/Davidslv/castplay">github.com/Davidslv/castplay</a> ·
+        <a href="docs/getting-started.md">Getting started</a> ·
+        <a href="docs/architecture.md">Architecture</a>
+      </p>
+    </main>
 
-  <!-- The demo cast, inline so the page is self-contained and works from file://. -->
-  <script type="text/cast" id="demo">
-{"version": 2, "width": 80, "height": 12, "title": "castplay hello"}
-[0.3, "o", "$ "]
-[0.9, "o", "echo \u001b[32mhello\u001b[0m from \u001b[36mcastplay\u001b[0m"]
-[1.4, "o", "\r\n"]
-[1.5, "o", "\u001b[32mhello\u001b[0m from \u001b[36mcastplay\u001b[0m\r\n"]
-[2.0, "o", "$ "]
-[2.6, "o", "castplay --no-deps --no-cdn --no-build"]
-[3.1, "o", "\r\n"]
-[3.2, "o", "\u001b[90m# one file. no deps. no build. that's the whole thing.\u001b[0m\r\n"]
-[3.9, "o", "$ "]
-  </script>
-  <script src="castplay.js"></script>
-</body>
+    <!-- The demo cast, inline so the page is self-contained and works from file://. -->
+    <script type="text/cast" id="demo">
+      {"version": 2, "width": 80, "height": 12, "title": "castplay hello"}
+      [0.3, "o", "$ "]
+      [0.9, "o", "echo \u001b[32mhello\u001b[0m from \u001b[36mcastplay\u001b[0m"]
+      [1.4, "o", "\r\n"]
+      [1.5, "o", "\u001b[32mhello\u001b[0m from \u001b[36mcastplay\u001b[0m\r\n"]
+      [2.0, "o", "$ "]
+      [2.6, "o", "castplay --no-deps --no-cdn --no-build"]
+      [3.1, "o", "\r\n"]
+      [3.2, "o", "\u001b[90m# one file. no deps. no build. that's the whole thing.\u001b[0m\r\n"]
+      [3.9, "o", "$ "]
+    </script>
+    <script src="castplay.js"></script>
+  </body>
 </html>

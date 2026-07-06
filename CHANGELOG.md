@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `parseCast` now skips whitespace-only lines (for example, the indentation
+  before a nested `</script>`), so inline casts read from an indented
+  `<script type="text/cast">` block parse reliably.
+
+### Changed
+
+- Development tooling only (nothing in what ships changes; the library stays
+  runtime dependency-free): ESLint, Prettier, markdownlint, and yamllint, plus
+  two dependency-free gates — `check-casts` (no raw ESC bytes; every example and
+  inline cast parses) and `check-docs` (version consistency) — all run in CI.
+
 ## [1.0.0] - 2026-07-06
 
 First public release. Extracted from the presentation decks on
@@ -14,6 +27,7 @@ First public release. Extracted from the presentation decks on
 tested for standalone use.
 
 ### Added
+
 - `castplay.js` — the whole player in one dependency-free file: parses an
   asciinema v2 `.cast`, types it into a styled element with ANSI-SGR colour,
   autoplays on scroll into view via `IntersectionObserver`, and auto-scrolls.

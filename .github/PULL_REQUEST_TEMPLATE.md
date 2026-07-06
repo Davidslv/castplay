@@ -11,7 +11,7 @@
 ## Quality gates
 
 - [ ] `npm test` passes locally (Node 18+).
-- [ ] `npm run gate` passes (version consistent across `castplay.js`, `package.json`, `CHANGELOG.md`, `CITATION.cff`).
+- [ ] `npm run lint` passes (eslint, prettier, markdownlint, docs + cast gates).
 - [ ] User-facing changes are noted in `CHANGELOG.md` under `## [Unreleased]`.
-- [ ] This change keeps castplay **dependency-free, CDN-free, and build-step-free** (or I've opened an issue to discuss why it can't).
+- [ ] This change keeps castplay's **runtime** dependency-free, CDN-free, and build-step-free (or I've opened an issue to discuss why it can't).
 - [ ] Code style matches the surrounding file; non-obvious lines are commented.

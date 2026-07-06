@@ -4,8 +4,8 @@
 
 Please report suspected vulnerabilities **privately**, not in a public issue.
 
-- Preferred: open a [private security advisory](https://github.com/Davidslv/castplay/security/advisories/new) on this repository (GitHub → *Security* → *Report a vulnerability*).
-- Or email **davidslv.london@gmail.com** with "castplay security" in the subject.
+- Preferred: open a [private security advisory](https://github.com/Davidslv/castplay/security/advisories/new) on this repository (GitHub → _Security_ → _Report a vulnerability_).
+- Or email **<davidslv.london@gmail.com>** with "castplay security" in the subject.
 
 Please include what you observed, a minimal `.cast` or HTML snippet that reproduces it, and the browser/version. As a solo-maintained project there is no formal SLA, but you can expect an acknowledgement within a few days. Please give a reasonable window to fix before public disclosure.
 
@@ -13,10 +13,10 @@ Please include what you observed, a minimal `.cast` or HTML snippet that reprodu
 
 castplay follows [Semantic Versioning](https://semver.org). Only the latest released version receives fixes; there are no long-term support branches.
 
-| Version | Supported |
-|---|---|
-| 1.x (latest) | ✅ |
-| < 1.0 | ❌ |
+| Version      | Supported |
+| ------------ | --------- |
+| 1.x (latest) | ✅        |
+| < 1.0        | ❌        |
 
 ## Threat model — what castplay actually does
 
@@ -27,7 +27,7 @@ Being honest about the trust boundary matters more than boilerplate. castplay is
 - wraps text only in `<span>` elements whose styling comes from a **fixed, in-code colour palette** — never from the cast — so a cast cannot inject arbitrary CSS either;
 - runs **entirely in the browser**: no `eval`, no cookies, no storage, and no network access beyond the single `fetch()` of the exact URL you supply.
 
-**Where the trust boundary sits.** The page author controls which cast is loaded (the `data-cast` value and the inline block) and how the terminal element is styled. Within that, the *content* of a cast is treated as untrusted text and escaped. The practical guidance:
+**Where the trust boundary sits.** The page author controls which cast is loaded (the `data-cast` value and the inline block) and how the terminal element is styled. Within that, the _content_ of a cast is treated as untrusted text and escaped. The practical guidance:
 
 - **Prefer inline casts** for anything you control — the page stays self-contained with no network dependency.
 - If you `fetch()` a cast from a URL, apply the same trust you would to any other content you display: serve it from an origin you control or trust. castplay escapes the text, but you still own what you choose to show your users.

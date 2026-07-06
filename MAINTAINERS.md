@@ -1,7 +1,7 @@
 # Maintainers
 
-| Maintainer | GitHub | Area |
-|---|---|---|
+| Maintainer  | GitHub                                   | Area                                           |
+| ----------- | ---------------------------------------- | ---------------------------------------------- |
 | David Silva | [@Davidslv](https://github.com/Davidslv) | Everything — library, docs, releases, security |
 
 castplay is currently maintained by one person. See [GOVERNANCE.md](GOVERNANCE.md) for how decisions are made.

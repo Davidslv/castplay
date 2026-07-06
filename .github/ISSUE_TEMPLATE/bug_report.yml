@@ -1,7 +1,7 @@
 name: Bug report
 description: Something in castplay doesn't work as documented.
-title: "[bug]: "
-labels: ["bug"]
+title: '[bug]: '
+labels: ['bug']
 body:
   - type: markdown
     attributes:
@@ -46,7 +46,7 @@ body:
     id: version
     attributes:
       label: castplay version
-      placeholder: "1.0.0"
+      placeholder: '1.0.0'
     validations:
       required: true
   - type: input

@@ -4,7 +4,7 @@ Thanks for considering a contribution. castplay is deliberately small — one fi
 
 ## The prime directive: stay tiny and dependency-free
 
-The single most important property of this project is that a user drops in **one file with no dependencies, no CDN, and no build step**. A change that adds a runtime dependency, a build tool, or a required bundler will almost certainly be declined. If you think castplay genuinely needs one, open an issue to discuss it *before* writing code (see "Proposing a larger change" below).
+The single most important property of this project is that a user drops in **one file with no dependencies, no CDN, and no build step**. A change that adds a runtime dependency, a build tool, or a required bundler will almost certainly be declined. If you think castplay genuinely needs one, open an issue to discuss it _before_ writing code (see "Proposing a larger change" below).
 
 ## Dev setup
 
@@ -20,22 +20,23 @@ To see the player actually run, open `index.html` in a browser — it works stra
 
 ## The quality gates
 
-Every pull request must pass both gates. CI runs them on Node 18, 20, and 22; run them locally first:
+Every pull request must pass the gates below. CI runs them on Node 18, 20, and 22; run them locally first (`npm ci` once, to get the dev tooling):
 
 ```sh
 npm test           # node --test — the behavioural suite
-npm run gate       # scripts/check-docs.sh — version-consistency check
+npm run lint       # eslint, prettier --check, markdownlint, docs + cast gates
+npm run gate       # shorthand for: npm run lint && npm test
 ```
 
 1. **Tests (`npm test`).** The suite covers the pure core — `parseCast` and `ansiToHtml`. If you change parsing or ANSI handling, add or update a test. New behaviour needs a test that fails without your change.
-2. **Docs gate (`npm run gate`).** The version must agree across `castplay.js`, `package.json`, `CHANGELOG.md`, and `CITATION.cff`. If you bump one, bump them all — the gate will fail otherwise.
+2. **Lint (`npm run lint`).** Runs, in order: `node --check`, ESLint, Prettier (`--check`), markdownlint, the docs gate (`scripts/check-docs.sh` — the version must agree across `castplay.js`, `package.json`, `CHANGELOG.md`, and `CITATION.cff`; bump one, bump all), and the cast gate (`scripts/check-casts.js` — no raw ESC bytes, and every example/inline cast parses). Run `npm run format` to auto-fix formatting. YAML is linted by `yamllint` in CI.
 
 The `Player`/DOM layer isn't unit-tested (it would need a headless browser and that conflicts with "zero dependencies"); verify UI changes by hand in `index.html` and describe what you checked in the PR.
 
 ## Coding conventions
 
 - **Match the existing style.** The source is ES5-flavoured (`var`, `function`, IIFE) on purpose: it runs everywhere with no transpile. Keep it that way unless a change is specifically about raising the baseline.
-- **Comment the *why*.** The code already explains its intent; keep that up. A non-obvious line deserves a sentence.
+- **Comment the _why_.** The code already explains its intent; keep that up. A non-obvious line deserves a sentence.
 - Whitespace is governed by [`.editorconfig`](.editorconfig) — 2-space indent, LF, final newline. Most editors apply it automatically.
 
 ## Commit and PR conventions

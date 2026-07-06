@@ -1,12 +1,19 @@
 version: 2
-# castplay ships zero runtime and dev dependencies, so there is no npm/package
-# ecosystem for Dependabot to watch — adding one would be noise. The only moving
-# external parts are the GitHub Actions pinned in .github/workflows, so that is
-# the single ecosystem configured here.
+# castplay ships zero *runtime* dependencies. The npm packages below are
+# dev-only lint/format tooling (they never reach users), and the GitHub Actions
+# are pinned in .github/workflows. Those are the two ecosystems the repo
+# actually has, so those are the two Dependabot watches — no others.
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     commit-message:
-      prefix: "ci"
+      prefix: 'deps'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    commit-message:
+      prefix: 'ci'

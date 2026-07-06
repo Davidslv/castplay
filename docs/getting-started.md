@@ -14,18 +14,24 @@ Create `demo.html` next to `castplay.js`:
 
 ```html
 <!doctype html>
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <title>My castplay demo</title>
 
 <style>
   .term {
     display: block;
-    background: #010409; color: #c9d1d9;
-    border: 1px solid #30363d; border-radius: 8px;
-    padding: 1rem; max-height: 12rem; overflow-y: auto;
-    white-space: pre-wrap; word-break: break-word;
+    background: #010409;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1rem;
+    max-height: 12rem;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
     font-family: ui-monospace, Menlo, Consolas, monospace;
-    font-size: .9rem; line-height: 1.5;
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 </style>
 
@@ -34,11 +40,11 @@ Create `demo.html` next to `castplay.js`:
 
 <!-- 2. The cast, inline, so this page works even opened from disk. -->
 <script type="text/cast" id="hello">
-{"version":2,"width":80,"height":10}
-[0.3,"o","$ "]
-[0.9,"o","echo hello from castplay\r\n"]
-[1.4,"o","hello from castplay\r\n"]
-[1.8,"o","$ "]
+  {"version":2,"width":80,"height":10}
+  [0.3,"o","$ "]
+  [0.9,"o","echo hello from castplay\r\n"]
+  [1.4,"o","hello from castplay\r\n"]
+  [1.8,"o","$ "]
 </script>
 
 <!-- 3. The library. Loads last; it wires everything up on its own. -->
@@ -57,9 +63,9 @@ Casts carry ANSI colour via escape sequences. In a `.cast`, the escape byte is w
 
 ```html
 <script type="text/cast" id="hello">
-{"version":2,"width":80,"height":10}
-[0.3,"o","$ "]
-[0.9,"o","echo \u001b[32mhello\u001b[0m from \u001b[36mcastplay\u001b[0m\r\n"]
+  {"version":2,"width":80,"height":10}
+  [0.3,"o","$ "]
+  [0.9,"o","echo \u001b[32mhello\u001b[0m from \u001b[36mcastplay\u001b[0m\r\n"]
 </script>
 ```
 

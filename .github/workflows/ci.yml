@@ -21,14 +21,34 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      # No dependencies to install — the library and its tests are dependency-free.
+      # The library and its tests are dependency-free, so no install is needed
+      # to run them — this job stays fast and proves the zero-dep promise.
       - name: Run tests
         run: node --test
 
-  gate:
-    name: docs consistency gate
+  lint:
+    name: lint (js, format, markdown, docs, casts)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check version consistency across docs and source
-        run: sh scripts/check-docs.sh
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dev tooling
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+
+  yaml:
+    name: yamllint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install yamllint
+        run: pip install yamllint==1.38.0
+      - name: Lint YAML
+        run: yamllint -c .yamllint.yml .github/ CITATION.cff .yamllint.yml

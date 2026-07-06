@@ -1,0 +1,13 @@
+{
+  // Markdown lint rules. Prose is intentionally not hard-wrapped, and the docs
+  // show real HTML usage, so the two noisiest defaults are relaxed.
+  "config": {
+    "default": true,
+    "MD013": false, // line-length — prose and tables aren't hard-wrapped
+    "MD033": false, // inline HTML — the docs demonstrate <script>/<pre>/<span> usage
+    "MD040": false, // allow language-less fenced blocks (raw ANSI/escape snippets)
+    "MD041": false, // partials (PR/issue templates) needn't open with an H1
+  },
+  // Contributor Covenant, included verbatim — never lint or reformat it.
+  "ignores": ["node_modules", "CODE_OF_CONDUCT.md"],
+}

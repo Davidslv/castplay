@@ -31,18 +31,14 @@ test('public API surface is present', () => {
 });
 
 test('version matches package.json', () => {
-  const pkg = JSON.parse(
-    fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8')
-  );
+  const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8'));
   assert.equal(version, pkg.version);
 });
 
 test('parseCast drops the header and returns output events', () => {
-  const cast = [
-    '{"version":2,"width":80,"height":24}',
-    '[0.1,"o","a"]',
-    '[0.2,"o","b"]',
-  ].join('\n');
+  const cast = ['{"version":2,"width":80,"height":24}', '[0.1,"o","a"]', '[0.2,"o","b"]'].join(
+    '\n',
+  );
   const events = parseCast(cast);
   assert.equal(events.length, 2);
   assert.deepEqual(events[0], [0.1, 'o', 'a']);
@@ -56,16 +52,22 @@ test('parseCast tolerates blank lines and a trailing newline', () => {
   assert.deepEqual(events[0], [0, 'o', 'x']);
 });
 
+test('parseCast tolerates whitespace-only lines (e.g. an indented </script>)', () => {
+  // Inline casts read from a <script> element's textContent carry the page's
+  // indentation, so the last line before a nested </script> is often "  ".
+  const cast = '  {"version":2}\n  [0,"o","x"]\n  ';
+  const events = parseCast(cast);
+  assert.equal(events.length, 1);
+  assert.deepEqual(events[0], [0, 'o', 'x']);
+});
+
 test('parseCast throws SyntaxError on a malformed event line', () => {
   const cast = '{"version":2}\n[0,"o", not-json]';
   assert.throws(() => parseCast(cast), SyntaxError);
 });
 
 test('the bundled example cast parses', () => {
-  const cast = fs.readFileSync(
-    path.join(__dirname, '..', 'examples', 'hello.cast'),
-    'utf8'
-  );
+  const cast = fs.readFileSync(path.join(__dirname, '..', 'examples', 'hello.cast'), 'utf8');
   const events = parseCast(cast);
   assert.ok(events.length > 0);
   assert.ok(events.every((e) => Array.isArray(e) && e.length === 3));

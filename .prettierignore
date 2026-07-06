@@ -1,0 +1,11 @@
+# Generated / vendored — don't reformat.
+node_modules/
+package-lock.json
+
+# CODE_OF_CONDUCT.md is the Contributor Covenant 2.1, included verbatim.
+# Reformatting it would break the "used verbatim" guarantee.
+CODE_OF_CONDUCT.md
+
+# .cast files are newline-delimited JSON recordings; keep them byte-for-byte
+# as recorded (Prettier has no cast parser anyway).
+*.cast

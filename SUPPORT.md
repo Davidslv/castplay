@@ -6,7 +6,7 @@ Thanks for using castplay. Here's where to get help and what to expect.
 
 - **A question or usage help** → open a [GitHub Discussion](https://github.com/Davidslv/castplay/discussions) if enabled, or a [question issue](https://github.com/Davidslv/castplay/issues/new/choose).
 - **A bug** → open a [bug report](https://github.com/Davidslv/castplay/issues/new/choose). A minimal reproducing `.cast` + HTML snippet gets it fixed fastest.
-- **A feature idea** → open a [feature request](https://github.com/Davidslv/castplay/issues/new/choose). Note that castplay optimises for *staying tiny* — see [GOVERNANCE.md](GOVERNANCE.md).
+- **A feature idea** → open a [feature request](https://github.com/Davidslv/castplay/issues/new/choose). Note that castplay optimises for _staying tiny_ — see [GOVERNANCE.md](GOVERNANCE.md).
 - **A security issue** → **do not** open a public issue; follow [SECURITY.md](SECURITY.md).
 
 ## Before you open an issue

@@ -36,11 +36,25 @@
   ],
   "scripts": {
     "test": "node --test",
-    "gate": "sh scripts/check-docs.sh"
+    "lint": "npm run lint:syntax && npm run lint:js && npm run lint:format && npm run lint:md && npm run lint:docs && npm run lint:casts",
+    "lint:syntax": "node --check castplay.js",
+    "lint:js": "eslint .",
+    "lint:format": "prettier --check .",
+    "lint:md": "markdownlint-cli2 \"**/*.md\"",
+    "lint:docs": "sh scripts/check-docs.sh",
+    "lint:casts": "node scripts/check-casts.js",
+    "format": "prettier --write .",
+    "gate": "npm run lint && npm test"
   },
   "engines": {
     "node": ">=18"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^9.1.2",
+    "globals": "^15.15.0",
+    "markdownlint-cli2": "^0.14.0",
+    "prettier": "^3.9.4"
+  }
 }

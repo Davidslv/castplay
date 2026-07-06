@@ -1,0 +1,23 @@
+# yamllint config. Starts from the default rules and relaxes the ones that
+# fight GitHub's own YAML conventions (workflow `on:` keys, unwrapped strings).
+extends: default
+
+yaml-files:
+  - '*.yaml'
+  - '*.yml'
+  - '.yamllint.yml'
+  - 'CITATION.cff'
+
+rules:
+  # Descriptions in issue forms and comments run long; Prettier already keeps
+  # things tidy, so don't second-guess line length.
+  line-length: disable
+  # GitHub workflows/config don't use an explicit `---` document marker.
+  document-start: disable
+  # A workflow's `on:` key is not a boolean; don't flag it.
+  truthy:
+    check-keys: false
+  # Allow a single space before inline comments (Prettier's style).
+  comments:
+    min-spaces-from-content: 1
+  comments-indentation: disable
