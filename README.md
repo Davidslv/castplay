@@ -21,7 +21,7 @@ castplay parses an asciinema v2 `.cast` (a recorded terminal session) and *types
 
 That is the whole integration. Style `.term` as a terminal, and the demo plays when it scrolls into view.
 
-> **Live demo:** open [`index.html`](index.html) in a browser (it works straight from disk).
+> **Live demo:** [davidslv.uk/castplay](https://davidslv.uk/castplay/) — or open [`index.html`](index.html) straight from disk, no server needed.
 
 ## Install
 
