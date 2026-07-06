@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   into an asciinema `.cast`: commands "type" out, output streams in, timing is
   synthesised. Supports `--inline` (paste-ready `<pre>` + `<script>` block),
   `--color`, a custom `--prompt`, and pacing knobs. Run via `npm run txt2cast`.
+- README: a "Why castplay?" section comparing it with asciinema-player and
+  stating plainly when to use each.
 
 ### Fixed
 

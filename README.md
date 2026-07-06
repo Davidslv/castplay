@@ -23,6 +23,21 @@ That is the whole integration. Style `.term` as a terminal, and the demo plays w
 
 > **Live demo:** [davidslv.uk/castplay](https://davidslv.uk/castplay/) — or open [`index.html`](index.html) straight from disk, no server needed.
 
+## Why castplay? (and when to use asciinema-player instead)
+
+[asciinema](https://asciinema.org)'s own player is excellent and does far more — it's a real terminal emulator with a scrub bar, speed controls, and themes. castplay isn't trying to replace it. Reach for castplay when you're **embedding a linear terminal demo in a web page or slide deck** and these properties matter more than emulator fidelity:
+
+| Property                                        | castplay                              | asciinema-player                   |
+| ----------------------------------------------- | ------------------------------------- | ---------------------------------- |
+| Footprint                                       | one file, no deps, no build           | a JS + CSS bundle (CDN or bundler) |
+| Works from `file://`                            | yes — inline the cast                 | needs a server for the cast/assets |
+| Styling                                         | inherits your page (text + `<span>`s) | its own terminal chrome/theme      |
+| Autoplay on scroll-into-view                    | built in                              | a click-to-play widget             |
+| Non-linear output (cursor moves, `clear`, TUIs) | not supported                         | full emulator                      |
+| Player controls (seek, speed)                   | none — click to pause / replay        | yes                                |
+
+**Use asciinema-player instead** when you need faithful playback of cursor-addressed or full-screen output, a timeline/seek bar, or hosted sharing on asciinema.org. castplay even relies on asciinema for recording. See [architecture → where this design strains](docs/architecture.md#where-this-design-would-strain) for the honest limits.
+
 ## Install
 
 castplay is one file — pick whichever suits you:
