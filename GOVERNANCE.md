@@ -18,7 +18,7 @@ castplay uses a **single-maintainer (BDFL) model**, stated honestly rather than 
 
 ## Scope
 
-castplay is a _display component_ for asciinema casts. Recording tooling, a general terminal emulator, or a plugin system are out of scope by design — the point is that it's small enough to read in one sitting.
+castplay is a _display component_ for asciinema casts. Capturing a live terminal session (that's asciinema's job), a general terminal emulator, or a plugin system are out of scope by design — the point is that the player stays small enough to read in one sitting. Small, dependency-free **authoring helpers** that transform casts you already have — like the bundled `tools/txt-to-cast.js` — are in scope, as long as they don't bloat what ships to users.
 
 ## How this model can evolve
 

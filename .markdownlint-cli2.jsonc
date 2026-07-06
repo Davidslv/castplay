@@ -7,6 +7,7 @@
     "MD033": false, // inline HTML — the docs demonstrate <script>/<pre>/<span> usage
     "MD040": false, // allow language-less fenced blocks (raw ANSI/escape snippets)
     "MD041": false, // partials (PR/issue templates) needn't open with an H1
+    "MD024": { "siblings_only": true }, // Keep a Changelog repeats "Added" etc. per version
   },
   // Contributor Covenant, included verbatim — never lint or reformat it.
   "ignores": ["node_modules", "CODE_OF_CONDUCT.md"],

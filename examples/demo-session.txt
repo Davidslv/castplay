@@ -1,0 +1,6 @@
+$ npm install castplay
+added 1 package in 0.4s
+$ node -e "console.log(require('castplay').version)"
+1.0.0
+$ echo "one file. no deps. no build."
+one file. no deps. no build.

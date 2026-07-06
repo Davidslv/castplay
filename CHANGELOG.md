@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `tools/txt-to-cast.js` — a dependency-free authoring tool that turns a
+  plain-text terminal transcript (e.g. copied from your terminal into a `.txt`)
+  into an asciinema `.cast`: commands "type" out, output streams in, timing is
+  synthesised. Supports `--inline` (paste-ready `<pre>` + `<script>` block),
+  `--color`, a custom `--prompt`, and pacing knobs. Run via `npm run txt2cast`.
+
 ### Fixed
 
 - `parseCast` now skips whitespace-only lines (for example, the indentation

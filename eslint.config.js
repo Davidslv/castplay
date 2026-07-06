@@ -37,8 +37,8 @@ module.exports = [
   },
 
   {
-    // Tests, build scripts, and this config: Node CommonJS.
-    files: ['test/**/*.js', 'scripts/**/*.js', 'eslint.config.js'],
+    // Tests, build scripts, authoring tools, and this config: Node CommonJS.
+    files: ['test/**/*.js', 'scripts/**/*.js', 'tools/**/*.js', 'eslint.config.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'commonjs',

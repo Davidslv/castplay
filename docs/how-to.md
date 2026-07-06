@@ -3,6 +3,7 @@
 Task-oriented answers. Each is self-contained. If you're brand new, do [Getting started](getting-started.md) first.
 
 - [Record a cast from a real terminal](#record-a-cast-from-a-real-terminal)
+- [Convert a copied terminal transcript into a cast](#convert-a-copied-terminal-transcript-into-a-cast)
 - [Inline a cast vs fetch it from a URL](#inline-a-cast-vs-fetch-it-from-a-url)
 - [Add or change colours](#add-or-change-colours)
 - [Theme every player at once](#theme-every-player-at-once)
@@ -23,6 +24,34 @@ asciinema rec demo.cast
 Then either point a player at the file (`data-cast="demo.cast"`, served over http) or paste its contents into an inline `<script type="text/cast">` block (works from `file://`). castplay reads the header + `"o"` (output) events and ignores the rest — see the [cast-format reference](cast-format.md).
 
 Keep recordings **linear** (type a command, see output, repeat). castplay appends text; it doesn't emulate a cursor, so avoid `clear`, progress bars, and full-screen tools like `vim` or `top` (see [architecture → where this strains](architecture.md#where-this-design-would-strain)).
+
+## Convert a copied terminal transcript into a cast
+
+Didn't record with asciinema, but you still have the output? Select it in your terminal, paste it into a `.txt` file, and let the bundled tool synthesise a cast — commands "type" out, output streams in:
+
+```sh
+# paste your terminal session into session.txt, then:
+node tools/txt-to-cast.js session.txt -o session.cast
+
+# or straight from the clipboard (macOS):
+pbpaste | node tools/txt-to-cast.js -o session.cast
+```
+
+By default a line starting with `"$ "` is treated as a typed command (the prompt shows instantly, the rest types out); every other line is output. Point `--prompt` at your actual prompt if it differs, so real output that happens to contain a `"$ "` isn't mistaken for a command:
+
+```sh
+node tools/txt-to-cast.js session.txt --prompt '❯ ' -o session.cast
+```
+
+To get a **paste-ready inline block** (castplay's preferred, works-from-`file://` form) in one step, add `--inline`:
+
+```sh
+node tools/txt-to-cast.js session.txt --inline demo --color
+```
+
+That prints a `<pre class="term" data-cast="#demo">` plus its `<script type="text/cast">` block, ready to drop into a page. Useful flags: `--type-speed`, `--line-pause`, and `--output-speed` (all in milliseconds) tune the pacing; `--color` tints the prompt; `--title`, `--width`, `--height` set the header. Run `node tools/txt-to-cast.js --help` for the full list.
+
+This is an **authoring convenience**, not a recorder — plain text has no real timing or colour, so the tool synthesises them. For a faithful capture of a live session (true keystroke timing, real ANSI colour), record with asciinema instead.
 
 ## Inline a cast vs fetch it from a URL
 

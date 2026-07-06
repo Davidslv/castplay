@@ -44,6 +44,7 @@
     "lint:docs": "sh scripts/check-docs.sh",
     "lint:casts": "node scripts/check-casts.js",
     "format": "prettier --write .",
+    "txt2cast": "node tools/txt-to-cast.js",
     "gate": "npm run lint && npm test"
   },
   "engines": {
